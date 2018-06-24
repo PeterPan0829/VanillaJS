@@ -1,1 +1,1 @@
-Work in develop web now, My company aren't use any web framework just html、CSS and JQuery+Javascript. But honestly can use Vanilla.js substitute JQuery.
+Work in develop web now, My company aren't use any web framework just html、CSS and JQuery+Javascript. But honestly can use Vanilla.js substitute JQuery. And the same time I'll to suppose you learn native Javascript(Vanilla.js) step by step to explain. 
