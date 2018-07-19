@@ -87,6 +87,9 @@
       </table>
     </form>
     <script type="text/javascript">
+      // convert() 這是一個函式，先去把 cssbox、editbox內容取出來，確定都取到了之後再取顯示的節點 showbox。
+      // 最後去取得 showboxstyle 的節點
+
       function convert() {
         var cssbox = document.getElementById("cssbox");
         var editbox = document.getElementById("editbox");
