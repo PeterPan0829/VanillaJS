@@ -1,4 +1,4 @@
-<!-- 
+<!--
   Step1. 先把靜態的內容刻劃出來，所以要先在body當中把你要的畫面大概、標準刻劃出來。
   Step2. 把畫面做點美觀的樣式。這裡我不使用套件囉直接用在 <head> 當中新增 <styke> 編輯ＣＳＳ。
   Step3. 最重要的 ＂飛天遁地＂功能就是要用 Javascript 完成！
@@ -66,6 +66,8 @@
 
 <body>
   <section id="content">
+
+    <!-- list 是一開始列表的部分 -->
     <div id="list" class="panel">
       <h1>Posts</h1>
       <p>You have
@@ -76,6 +78,8 @@
       <ul id="posts">
       </ul>
     </div>
+
+    <!-- create 是創建新的留言 -->
     <div id="create" class="panel">
       <h1>New Post</h1>
       <p>Create a new post.</p>
@@ -89,6 +93,8 @@
         <input type="button" value="Create" onclick="save()">
       </p>
     </div>
+
+    <!-- show 是顯示留言 -->
     <div id="show" class="panel">
       <h1 id="showTitle"></h1>
       <p id="showBody"></p>
@@ -97,6 +103,10 @@
   <script>
     let posts = []
 
+    /*
+      這個例子的邏輯 showPanel(id) 就是只顯示 id 的部分其它兩個隱藏（反正就是只顯示一項），none 是隱藏 block 是顯示
+      然後用 forEach 對這個節點做操作，因為取得的是一個陣列。
+    */
     function showPanel(id) {
       document.querySelectorAll('.panel').forEach((node) => node.style.display = 'none')
       document.getElementById(id).style.display = 'block'
@@ -109,7 +119,7 @@
       }
       document.getElementById('posts').innerHTML = postsHtml.join('\n')
       document.getElementById('postsLength').innerHTML = posts.length
-      showPanel('list')
+      showPanel('list') // 只顯示 list 的區塊
     }
 
     function save() {
@@ -127,14 +137,28 @@
       let i = parseInt(match[1])
       document.getElementById('showTitle').innerHTML = posts[i].title
       document.getElementById('showBody').innerHTML = posts[i].body
-      showPanel('show')
+      showPanel('show') // 只顯示 show 的區塊
     }
 
     function create(match) {
-      showPanel('create')
+      showPanel('create') // 只顯示 create 的區塊
       document.getElementById('postTitle').value = ''
       document.getElementById('postBody').value = ''
     }
+
+    /*
+      routeMap 是一個路由處理的動作，就是網址是什麼就做什麼動作。
+      以我們這個檔案的網址為例 =>> file:///C:/Users/Peter/Documents/All/All/All/vanillaBlog.html#/list/
+
+      通常做像這個範例（單頁應用）會用＃號後面的書籤去傳參數；如果是做（多頁應用有伺服器的）會用？號後面的書籤去傳參數，
+      但是現在越來越多都是用＃書籤去傳送參數，因為目前網頁都是以單頁式為主而不是多頁應用。
+
+      而下面有 window.onhashchange = function () 意思就是說當我們＃後面的參數改變就會觸發這個函式
+
+      以下範例：
+      （？）https://www.google.com.tw/search?q=abc&oq=abc&aqs=chrome..69i57j69i65j0l4.1628j0j1&sourceid=chrome&ie=UTF-8
+      （？）後面就是它的參數(用？還有就是如果把？後面的參數拿掉或換掉結果就不一樣)
+    */
     let routeMap = [
       [/^\/?show\/(\w+)\/?$/, show],
       [/^\/?list\/?$/, list],
