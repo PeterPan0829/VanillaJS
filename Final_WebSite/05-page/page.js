@@ -1,3 +1,4 @@
+// 若不太懂 ` ` 符號的用意請看我們在本專案當中的 README JavaScript ES6 中的模版字符串（template literals）和標籤模版（tagged template）
 const page = {}
 
 page.home = `
