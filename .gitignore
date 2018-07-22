@@ -1,6 +1,7 @@
 # linux
 *.o
 *.log
+*.mp4
 
 # VisualStudio generate
 Release
