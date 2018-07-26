@@ -52,5 +52,5 @@
 
 ## 11-fetch
 
-* 改用 fetch 到後端抓網頁來填入
+* 把 10-map 改用 fetch 到後端抓網頁來填入
 * 展示： https://medium.com/@s0931052089
