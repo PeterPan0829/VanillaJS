@@ -61,7 +61,7 @@
 
 var EndlessScroll;
 
-EndlessScroll = (function() {
+EndlessScroll = (function () {
   var defaults;
 
   EndlessScroll.name = 'EndlessScroll';
@@ -77,13 +77,13 @@ EndlessScroll = (function() {
     insertAfter: null,
     intervalFrequency: 250,
     ceaseFireOnEmpty: true,
-    resetCounter: function() {
+    resetCounter: function () {
       return false;
     },
-    callback: function() {
+    callback: function () {
       return true;
     },
-    ceaseFire: function() {
+    ceaseFire: function () {
       return false;
     }
   };
@@ -110,15 +110,15 @@ EndlessScroll = (function() {
     this.innerWrap = $('.endless_scroll_inner_wrap', this.target);
     this.handleDeprecatedOptions();
     this.setInsertPositionsWhenNecessary();
-    $(scope).scroll(function() {
+    $(scope).scroll(function () {
       _this.detectTarget(scope);
       return _this.detectScrollDirection();
     });
   }
 
-  EndlessScroll.prototype.run = function() {
+  EndlessScroll.prototype.run = function () {
     var _this = this;
-    return setInterval((function() {
+    return setInterval((function () {
       if (!_this.shouldTryFiring()) {
         return;
       }
@@ -142,7 +142,7 @@ EndlessScroll = (function() {
     }), this.options.intervalFrequency);
   };
 
-  EndlessScroll.prototype.handleDeprecatedOptions = function() {
+  EndlessScroll.prototype.handleDeprecatedOptions = function () {
     if (this.options.data) {
       this.options.content = this.options.data;
     }
@@ -151,7 +151,7 @@ EndlessScroll = (function() {
     }
   };
 
-  EndlessScroll.prototype.setInsertPositionsWhenNecessary = function() {
+  EndlessScroll.prototype.setInsertPositionsWhenNecessary = function () {
     var container;
     container = "" + this.target.selector + " div.endless_scroll_inner_wrap";
     if (defaults.insertBefore === null) {
@@ -162,12 +162,12 @@ EndlessScroll = (function() {
     }
   };
 
-  EndlessScroll.prototype.detectTarget = function(scope) {
+  EndlessScroll.prototype.detectTarget = function (scope) {
     this.target = scope;
     return this.targetId = $(this.target).attr('id');
   };
 
-  EndlessScroll.prototype.detectScrollDirection = function() {
+  EndlessScroll.prototype.detectScrollDirection = function () {
     var currentScrollTop;
     this.didScroll = true;
     currentScrollTop = $(this.target).scrollTop();
@@ -179,7 +179,7 @@ EndlessScroll = (function() {
     return this.lastScrollTop = currentScrollTop;
   };
 
-  EndlessScroll.prototype.shouldTryFiring = function() {
+  EndlessScroll.prototype.shouldTryFiring = function () {
     var shouldTryOrNot;
     shouldTryOrNot = this.didScroll && this.firing === true;
     if (shouldTryOrNot) {
@@ -188,7 +188,7 @@ EndlessScroll = (function() {
     return shouldTryOrNot;
   };
 
-  EndlessScroll.prototype.ceaseFireWhenNecessary = function() {
+  EndlessScroll.prototype.ceaseFireWhenNecessary = function () {
     if (this.options.ceaseFireOnEmpty === true && this.lastContent === '' || this.options.ceaseFire.apply(this.target, [this.fireSequence, this.pageSequence, this.scrollDirection])) {
       this.firing = false;
       return true;
@@ -197,13 +197,13 @@ EndlessScroll = (function() {
     }
   };
 
-  EndlessScroll.prototype.wrapContainer = function(target) {
+  EndlessScroll.prototype.wrapContainer = function (target) {
     if (this.innerWrap.length === 0) {
       return this.innerWrap = $(target).wrapInner('<div class="endless_scroll_content" data-page="0" />').wrapInner('<div class="endless_scroll_inner_wrap" />').find('.endless_scroll_inner_wrap');
     }
   };
 
-  EndlessScroll.prototype.scrollableAreaMargin = function(innerWrap, target) {
+  EndlessScroll.prototype.scrollableAreaMargin = function (innerWrap, target) {
     var margin;
     switch (this.scrollDirection) {
       case 'next':
@@ -221,7 +221,7 @@ EndlessScroll = (function() {
     return margin;
   };
 
-  EndlessScroll.prototype.calculateScrollableCanvas = function() {
+  EndlessScroll.prototype.calculateScrollableCanvas = function () {
     if (this.target[0] === document || this.target[0] === window) {
       this.wrapContainer("body");
       return this.isScrollable = this.scrollableAreaMargin($(document), $(window));
@@ -231,18 +231,18 @@ EndlessScroll = (function() {
     }
   };
 
-  EndlessScroll.prototype.shouldBeFiring = function() {
+  EndlessScroll.prototype.shouldBeFiring = function () {
     this.calculateScrollableCanvas();
     return this.isScrollable && (this.options.fireOnce === false || (this.options.fireOnce === true && this.fired !== true));
   };
 
-  EndlessScroll.prototype.resetFireSequenceWhenNecessary = function() {
+  EndlessScroll.prototype.resetFireSequenceWhenNecessary = function () {
     if (this.options.resetCounter.apply(this.target) === true) {
       return this.fireSequence = 0;
     }
   };
 
-  EndlessScroll.prototype.acknowledgeFiring = function() {
+  EndlessScroll.prototype.acknowledgeFiring = function () {
     this.fired = true;
     this.fireSequence++;
     switch (this.scrollDirection) {
@@ -253,7 +253,7 @@ EndlessScroll = (function() {
     }
   };
 
-  EndlessScroll.prototype.insertContent = function(content) {
+  EndlessScroll.prototype.insertContent = function (content) {
     switch (this.scrollDirection) {
       case 'next':
         return $(this.options.insertAfter).after(content);
@@ -262,17 +262,17 @@ EndlessScroll = (function() {
     }
   };
 
-  EndlessScroll.prototype.insertLoader = function() {
+  EndlessScroll.prototype.insertLoader = function () {
     return this.insertContent("<div class=\"endless_scroll_loader_" + this.targetId + "      endless_scroll_loader\">" + this.options.loader + "</div>");
   };
 
-  EndlessScroll.prototype.removeLoader = function() {
-    return $('.endless_scroll_loader_' + this.targetId).fadeOut(function() {
+  EndlessScroll.prototype.removeLoader = function () {
+    return $('.endless_scroll_loader_' + this.targetId).fadeOut(function () {
       return $(this).remove();
     });
   };
 
-  EndlessScroll.prototype.hasContent = function() {
+  EndlessScroll.prototype.hasContent = function () {
     if (typeof this.options.content === 'function') {
       this.content = this.options.content.apply(this.target, [this.fireSequence, this.pageSequence, this.scrollDirection]);
     } else {
@@ -281,16 +281,16 @@ EndlessScroll = (function() {
     return this.content !== false;
   };
 
-  EndlessScroll.prototype.showContent = function() {
+  EndlessScroll.prototype.showContent = function () {
     $('#endless_scroll_content_current').removeAttr('id');
     return this.insertContent("<div id=\"endless_scroll_content_current\"      class=\"endless_scroll_content\" data-page=\"" + this.pageSequence + "\">" + this.content + "</div>");
   };
 
-  EndlessScroll.prototype.fireCallback = function() {
+  EndlessScroll.prototype.fireCallback = function () {
     return this.options.callback.apply(this.target, [this.fireSequence, this.pageSequence, this.scrollDirection]);
   };
 
-  EndlessScroll.prototype.cleanUpPagesWhenNecessary = function() {
+  EndlessScroll.prototype.cleanUpPagesWhenNecessary = function () {
     var pageToRemove;
     if (!(this.options.pagesToKeep >= 1)) {
       return;
@@ -315,15 +315,15 @@ EndlessScroll = (function() {
     return this.calculateScrollableCanvas();
   };
 
-  EndlessScroll.prototype.removePage = function(page) {
+  EndlessScroll.prototype.removePage = function (page) {
     return $(".endless_scroll_content[data-page='" + page + "']", this.target).remove();
   };
 
-  EndlessScroll.prototype.delayFiringWhenNecessary = function() {
+  EndlessScroll.prototype.delayFiringWhenNecessary = function () {
     var _this = this;
     if (this.options.fireDelay > 0) {
       $('body').after('<div id="endless_scroll_marker"></div>');
-      return $('#endless_scroll_marker').fadeTo(this.options.fireDelay, 1, function() {
+      return $('#endless_scroll_marker').fadeTo(this.options.fireDelay, 1, function () {
         $('#endless_scroll_marker').remove();
         return _this.fired = false;
       });
@@ -336,8 +336,8 @@ EndlessScroll = (function() {
 
 })();
 
-(function($) {
-  return $.fn.endlessScroll = function(options) {
+(function ($) {
+  return $.fn.endlessScroll = function (options) {
     return new EndlessScroll(this, options).run();
   };
 })(jQuery);

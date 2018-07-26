@@ -1,4 +1,4 @@
-// Wix.js chart Sample
+// 使用 Wix.js chart Sample
 
 const chart = {}
 
